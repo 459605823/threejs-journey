@@ -36,8 +36,12 @@ let geometry = null;
 let material = null;
 let points = null;
 
+const clock = new THREE.Clock();
+
 const generateGalaxy = () => {
   if (points !== null) {
+    clock.stop();
+    clock.start();
     geometry.dispose();
     material.dispose();
     scene.remove(points);
@@ -233,10 +237,15 @@ gui
   .step(0.1)
   .name("uSize");
 
+const debug = {
+  reset: generateGalaxy,
+};
+
+gui.add(debug, "reset");
+
 /**
  * Animate
  */
-const clock = new THREE.Clock();
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
